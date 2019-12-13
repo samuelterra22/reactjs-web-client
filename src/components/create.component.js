@@ -2,7 +2,15 @@ import React, { Component } from 'react'
 import { Redirect }         from 'react-router-dom'
 import axios                from 'axios'
 
+/**
+ * Componente para a inserção de novos alunos
+ */
 export default class Create extends Component {
+
+  /**
+   * Contrutor
+   * @param props
+   */
   constructor (props) {
     super(props)
     this.onChangeAvatar = this.onChangeAvatar.bind(this)
@@ -17,6 +25,12 @@ export default class Create extends Component {
     }
   }
 
+  /**
+   * Método para atualizar o estado do avatar quando o usuários
+   * modificá-lo.
+   *
+   * @param e Evento vindo da ação do usuário.
+   */
   onChangeAvatar (e) {
     let file = e.target.files[0]
     let reader = new FileReader()
@@ -29,12 +43,22 @@ export default class Create extends Component {
     }
   }
 
+  /**
+   * Método para atualizar o estado do nome quando o usuários
+   * modificá-lo.
+   *
+   * @param e Evento vindo da ação do usuário.
+   */
   onChangeNome (e) {
     this.setState({
       nome: e.target.value
     })
   }
 
+  /**
+   * Método responsável por mudar o estado do 'redirect'.
+   * É utilizado no botão de voltar à tela inicial.
+   */
   setRedirect = () => {
     this.setState({
       redirect: true
@@ -47,12 +71,24 @@ export default class Create extends Component {
     }
   }
 
+  /**
+   * Método para atualizar o estado do endereço quando o usuários
+   * modificá-lo.
+   *
+   * @param e Evento vindo da ação do usuário.
+   */
   onChangeEndereco (e) {
     this.setState({
       endereco: e.target.value
     })
   }
 
+  /**
+   * Método responsável por realizar a submissão dos dados
+   * para a API.
+   *
+   * @param e Evento vindo da ação do usuário.
+   */
   async onSubmit (e) {
     e.preventDefault()
     const obj = {
@@ -68,6 +104,10 @@ export default class Create extends Component {
       .catch(e => console.log('erro :' + e))
   }
 
+  /**
+   * Função para renderizar o html na página.
+   * @returns {*}
+   */
   render () {
     return (
       <div style={ {marginTop: 10} }>

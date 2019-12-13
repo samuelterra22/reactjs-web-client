@@ -2,7 +2,15 @@ import React, { Component } from 'react'
 import axios                from 'axios'
 import { Redirect }         from 'react-router-dom'
 
+/**
+ * Componente para a edição de alunos
+ */
 export default class Edit extends Component {
+
+  /**
+   * Contrutor
+   * @param props
+   */
   constructor (props) {
     super(props)
     this.onChangeAvatar = this.onChangeAvatar.bind(this)
@@ -18,6 +26,10 @@ export default class Edit extends Component {
     }
   }
 
+  /**
+   * Método responsável por buscar os dados do aluno cadastrados na api
+   * no momento da montagem do component.
+   */
   componentDidMount () {
     axios.get(`http://localhost:8080/alunos/${ this.props.match.params.id }`)
       .then(response => {
@@ -32,6 +44,12 @@ export default class Edit extends Component {
       })
   }
 
+  /**
+   * Método para atualizar o estado do avatar quando o usuários
+   * modificá-lo.
+   *
+   * @param e Evento vindo da ação do usuário.
+   */
   onChangeAvatar (e) {
     let file = e.target.files[0]
     let reader = new FileReader()
@@ -44,18 +62,36 @@ export default class Edit extends Component {
     }
   }
 
+  /**
+   * Método para atualizar o estado do nome quando o usuários
+   * modificá-lo.
+   *
+   * @param e Evento vindo da ação do usuário.
+   */
   onChangeNome (e) {
     this.setState({
       nome: e.target.value
     })
   }
 
+  /**
+   * Método para atualizar o estado do endereço quando o usuários
+   * modificá-lo.
+   *
+   * @param e Evento vindo da ação do usuário.
+   */
   onChangeEndereco (e) {
     this.setState({
       endereco: e.target.value
     })
   }
 
+  /**
+   * Método responsável por realizar a submissão dos dados
+   * para a API.
+   *
+   * @param e Evento vindo da ação do usuário.
+   */
   async onSubmit (e) {
     e.preventDefault()
     const obj = {
@@ -70,11 +106,10 @@ export default class Edit extends Component {
 
   }
 
-  async onBack (e) {
-    e.preventDefault()
-    this.props.history.push('/index')
-  }
-
+  /**
+   * Método responsável por mudar o estado do 'redirect'.
+   * É utilizado no botão de voltar à tela inicial.
+   */
   setRedirect = () => {
     this.setState({
       redirect: true
@@ -87,6 +122,10 @@ export default class Edit extends Component {
     }
   }
 
+  /**
+   * Função para renderizar o html na página.
+   * @returns {*}
+   */
   render () {
     return (
       <div style={ {marginTop: 10} }>
